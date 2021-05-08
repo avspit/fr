@@ -2,7 +2,8 @@ import cv2
 import numpy as np
 import mtcnn
 from architecture.resNetV2ModelStructure import *
-from train import normalize, l2_normalizer
+from sklearn.preprocessing import Normalizer
+from train import normalize
 from scipy.spatial.distance import cosine
 import pickle
 import constants.variables as const
@@ -30,7 +31,7 @@ def load_pickle(path):
     return encoding_dict
 
 
-def detect(img, detector, encoder, encoding_dict):
+def detect(img, detector, encoder, encoding_dict, l2_normalizer):
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     results = detector.detect_faces(img_rgb)
     for res in results:
@@ -60,6 +61,7 @@ if __name__ == "__main__":
     face_encoder.load_weights(const.FACENET_WEIGHTS)
     face_detector = mtcnn.MTCNN()
     encoding_dict = load_pickle(const.EMBEDDINGS)
+    l2_normalizer = Normalizer('l2')
 
     cap = cv2.VideoCapture(0)
 
@@ -71,7 +73,7 @@ if __name__ == "__main__":
             print(errors.CAMERA_ERROR)
             break
 
-        frame = detect(frame, face_detector, face_encoder, encoding_dict)
+        frame = detect(frame, face_detector, face_encoder, encoding_dict, l2_normalizer)
 
         cv2.imshow(const.WINDOW_NAME, frame)
 
