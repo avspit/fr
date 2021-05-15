@@ -14,5 +14,5 @@ Thumbs.db
 
 # Specific files #
 ##################
-/faces/tmp/*
-/faces/training/*
+#/faces/tmp/*
+#/faces/training/*
