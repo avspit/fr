@@ -677,7 +677,7 @@ def InceptionResNetV2():
     x = Dense(128, use_bias=False, name='Bottleneck')(x)
     x = BatchNormalization(momentum=0.995, epsilon=0.001, scale=False, name='Bottleneck_BatchNorm')(x)
 
-    # Create model
+    # Создаем модель
     model = Model(inputs, x, name='inception_resnet_v1')
 
     return model
