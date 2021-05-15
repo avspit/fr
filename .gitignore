@@ -16,3 +16,6 @@ Thumbs.db
 ##################
 /faces/tmp/*
 /faces/training/*
+# exception to the rule
+!/faces/tmp/.gitkeep
+!/faces/training/.gitkeep
